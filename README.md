@@ -10,15 +10,16 @@ Base image to execute JVM applications focused on Spring Boot applications.
 
 # How to use this image
 
-This image adds an entrypoint.sh that allows the execution of java applications. So you need to add your jar and set ENTRYPOINT just like that:
+This image adds an entrypoint.sh that allows the execution of java applications as user java:java and PID 1.
+
+Example of a Dockerfile using this base image:
 ```
-FROM rcruzper/java8-dockerize
+FROM rcruzper/openjdk:8-jre
 
-ADD yourapp.jar .
+COPY yourapp.jar .
 
-ENTRYPOINT ["./entrypoint.sh", "/yourapp.jar"]
+ENTRYPOINT ["./entrypoint.sh", "yourapp.jar"]
 ```
-
 
 ## Environment Variables
 

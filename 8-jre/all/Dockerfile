@@ -1,13 +1,22 @@
 FROM openjdk:8-jre-alpine
 MAINTAINER Raúl Cruz
 
-# install Java Cryptography Extension
-ADD https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/cryptography/local_policy.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/.
-ADD https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/cryptography/US_export_policy.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/.
+# Create user java:java
+RUN addgroup -S java && adduser -S -G java java
+WORKDIR /home/java
 
-# install newrelic APM agent
-ADD https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/monitoring/newrelic.jar .
-ADD https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/monitoring/newrelic.yml .
+# Install Java Cryptography Extension and NewRelic APM agent
+RUN mkdir -p /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security && \
+    wget --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip" && \
+    unzip -p jce_policy-8.zip UnlimitedJCEPolicyJDK8/local_policy.jar > /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/local_policy.jar && \
+    unzip -p jce_policy-8.zip UnlimitedJCEPolicyJDK8/US_export_policy.jar > /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/US_export_policy.jar && \
+    rm jce_policy-8.zip && \
+    wget https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/monitoring/newrelic.jar && \
+    wget https://raw.githubusercontent.com/rcruzper/openjdk/master/extensions/monitoring/newrelic.yml && \
+    chown java:java *
 
-# install entryproint script
-ADD entrypoint.sh .
+# Run as user java:java
+USER java:java
+
+# Install entrypoint script
+COPY --chown=java:java entrypoint.sh .
