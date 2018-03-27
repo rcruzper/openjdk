@@ -1,8 +1,6 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`8-jre-all`, `latest` (*8-jre/all/Dockerfile*)](https://raw.githubusercontent.com/rcruzper/java8-dockerize/master/8-jre/all/Dockerfile)
-- [`8-jre` (*8-jre/Dockerfile*)](https://raw.githubusercontent.com/rcruzper/java8-dockerize/master/8-jre/Dockerfile)
-- [`8-jdk-deprecated`, (*8-jdk-deprecated/Dockerfile*)](https://raw.githubusercontent.com/rcruzper/java8-dockerize/master/8-jdk-deprecated/Dockerfile)
+- [`8-jre`, `latest` (*8-jre/Dockerfile*)](https://raw.githubusercontent.com/abaenglish/openjdk/master/8-jre/Dockerfile)
 
 # What is this image?
 
@@ -14,7 +12,7 @@ This image adds an entrypoint.sh that allows the execution of java applications 
 
 Example of a Dockerfile using this base image:
 ```
-FROM rcruzper/openjdk:8-jre
+FROM abaenglish/openjdk:8-jre
 
 COPY yourapp.jar .
 
@@ -26,14 +24,11 @@ ENTRYPOINT ["./entrypoint.sh", "yourapp.jar"]
 The following environment variables can be set to tune java execution.
 
 ### `JAVA_AGENT`
-e.g., --java_agent:newrelic.jar
+e.g., --java_agent:/etc/agent/newrelic.jar (loaded as a volume)
 
 ### `JAVA_OPTS`
 e.g., --Xmx32m -Xss256k
 
 ## Extensions
 
-These extensions are installed with the images tagged as `all`:
-
 - [Java Cryptography Extension](https://en.wikipedia.org/wiki/Java_Cryptography_Extension)
-- [Newrelic APM agent](https://newrelic.com/application-monitoring)
