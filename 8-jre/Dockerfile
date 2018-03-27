@@ -14,7 +14,7 @@ RUN mkdir -p /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security && \
     rm jce_policy-8.zip && \
     # Entrypoint script
     # Using RUN instead of "COPY --chown=java:java entrypoint.sh ." because of --chown incompatibility with docker version prior to 17.09)
-    wget https://raw.githubusercontent.com/rcruzper/openjdk/master/8-jre/all/entrypoint.sh && \
+    wget https://raw.githubusercontent.com/abaenglish/openjdk/master/8-jre/entrypoint.sh && \
     chmod u+x entrypoint.sh && \
     # Set permissions to non-root user
     chown java:java *
