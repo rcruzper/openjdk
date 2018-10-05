@@ -1,6 +1,6 @@
 MAINTAINER Raúl Cruz
 
-FROM adoptopenjdk/openjdk10-openj9:latest
+FROM adoptopenjdk/openjdk10-openj9:alpine-slim
 
 RUN mkdir /opt/shareclasses
 
