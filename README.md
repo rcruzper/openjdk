@@ -1,7 +1,7 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`8-jre` (*8-jre/Dockerfile*)](https://raw.githubusercontent.com/abaenglish/openjdk/master/8-jre/Dockerfile)
-- [`10-jre`, `latest` (*10-jre/Dockerfile*)](https://raw.githubusercontent.com/abaenglish/openjdk/master/10-jre/Dockerfile)
+- [`8-jre` (*8-jre/Dockerfile*)](8-jre/Dockerfile)
+- [`10-jre`, `latest` (*10-jre/Dockerfile*)](10-jre/Dockerfile)
 
 # What is this image?
 
@@ -15,7 +15,7 @@ This image adds an entrypoint.sh that allows the execution of java applications 
 
 Example of a Dockerfile using this base image:
 ```
-FROM abaenglish/openjdk:8-jre
+FROM image:tag
 
 COPY yourapp.jar .
 
