@@ -59,7 +59,7 @@ RUN set -eux; \
     export PATH="/opt/java/openjdk/bin:$PATH"; \
     export PATH="${jdir}/bin:$PATH"; \
     apk add --virtual .build-deps bash binutils; \
-    ${jdir}/bin/jlink --compress=2 --module-path /opt/java/openjdk/jmods --add-modules openj9.sharedclasses,java.base,java.logging,java.xml,jdk.unsupported,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.instrument --output /linked; \
+    ${jdir}/bin/jlink --compress=2 --module-path /opt/java/openjdk/jmods --add-modules openj9.sharedclasses,java.base,java.logging,java.xml,jdk.unsupported,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.instrument,jdk.management --output /linked; \
     mv /linked/* /opt/java/openjdk; \
     apk del --purge .build-deps; \
     apk del --purge .fetch-deps; \
