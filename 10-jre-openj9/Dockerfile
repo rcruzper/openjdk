@@ -28,6 +28,8 @@ RUN apk --update add --no-cache --virtual .build-deps curl binutils \
 
 ENV JAVA_VERSION jdk10u
 
+COPY slim-java* /usr/local/bin/
+
 RUN set -eux; \
     apk add --virtual .fetch-deps curl; \
     ARCH="$(apk --print-arch)"; \
@@ -56,16 +58,15 @@ RUN set -eux; \
     echo "${ESUM}  /tmp/openjdk.tar.gz" | sha256sum -c -; \
     tar -xf /tmp/openjdk.tar.gz; \
     jdir=$(dirname $(dirname $(find /opt/java/openjdk -name javac))); \
+    mv ${jdir}/* /opt/java/openjdk; \
     export PATH="/opt/java/openjdk/bin:$PATH"; \
-    export PATH="${jdir}/bin:$PATH"; \
     apk add --virtual .build-deps bash binutils; \
-    ${jdir}/bin/jlink --compress=2 --module-path /opt/java/openjdk/jmods --add-modules openj9.sharedclasses,java.base,java.logging,java.xml,jdk.unsupported,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.instrument,jdk.management --output /linked; \
-    mv /linked/* /opt/java/openjdk; \
+    /usr/local/bin/slim-java.sh /opt/java/openjdk; \
     apk del --purge .build-deps; \
     apk del --purge .fetch-deps; \
     rm -rf /var/cache/apk/*; \
-    rm -rf ${jdir} /tmp/openjdk.tar.gz; \
-    rm -rf /linked;
+    rm -rf ${jdir} /tmp/openjdk.tar.gz;
+
 ENV JAVA_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
 ENV JAVA_TOOL_OPTIONS="-XX:+IgnoreUnrecognizedVMOptions -XX:+UseContainerSupport -XX:+IdleTuningCompactOnIdle -XX:+IdleTuningGcOnIdle"
