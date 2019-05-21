@@ -86,3 +86,6 @@ RUN mkdir /opt/shareclasses && \
 # Run as user java:java
 USER java:java
 WORKDIR /home/java
+
+# Add certifications for JVM 10
+COPY cacerts /opt/java/openjdk/lib/security/cacerts
