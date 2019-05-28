@@ -1,3 +1,8 @@
 #!/usr/bin/env sh
 
-exec java -noverify -XX:TieredStopAtLevel=1 -jar $JAVA_AGENT $JAVA_OPTS $@
+AGENT_PATH=$(echo $JAVA_AGENT|cut -d':' -f 2)
+if [ -f "$AGENT_PATH" ]; then
+    exec java -noverify -XX:TieredStopAtLevel=1 -jar $JAVA_AGENT $JAVA_OPTS $@
+else
+    exec java -noverify -XX:TieredStopAtLevel=1 -jar $JAVA_OPTS $@
+fi
