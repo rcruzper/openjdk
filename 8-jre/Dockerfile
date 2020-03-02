@@ -5,6 +5,11 @@ MAINTAINER Raúl Cruz
 RUN addgroup -S java && adduser -S -G java java
 WORKDIR /home/java
 
+# Update and upgrade packages
+RUN apk update && \
+    apk upgrade && \
+    rm -rf /var/cache/apk/*
+
 # Install extensions and entrypoint script
     # Install Java Cryptography Extension
 RUN mkdir -p /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security && \
