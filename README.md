@@ -1,7 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 
 - [`8-jre` (*8-jre/Dockerfile*)](8-jre/Dockerfile)
-- [`10-jre`, `latest` (*10-jre/Dockerfile*)](10-jre/Dockerfile)
+- [`8-jre-zulu` (*8-jre-zulu/Dockerfile*)](8-jre/Dockerfile)
+- [`11-jre-openj9` (*10-jre/Dockerfile*)](11-jre-openj9/Dockerfile)
 
 # What is this image?
 
